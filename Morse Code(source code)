@@ -1,14 +1,30 @@
 #include <iostream>
 #include <string>
+#include <map>
+#include <cctype>
 
 using namespace std;
 
 int main() {
+    map<char, string> morseCode = {
+        {'A', ".-"},   {'B', "-..."}, {'C', "-.-."}, {'D', "-.."},  {'E', "."},
+        {'F', "..-."}, {'G', "--."},  {'H', "...."}, {'I', ".."},   {'J', ".---"},
+        {'K', "-.-"},  {'L', ".-.."}, {'M', "--"},   {'N', "-."},   {'O', "---"},
+        {'P', ".--."}, {'Q', "--.-"}, {'R', ".-."},  {'S', "..."},  {'T', "-"},
+        {'U', "..-"},  {'V', "...-"}, {'W', ".--"},  {'X', "-..-"}, {'Y', "-.--"},
+        {'Z', "--.."}, {' ', " "}
+    };
+
     string input;
     cout << "Enter a message in English (A-Z characters only): ";
     getline(cin, input);
 
-    cout << "You entered: " << input << endl;
+    for (char ch : input) {
+        ch = toupper(ch);
+        if (morseCode.find(ch) != morseCode.end()) {
+            cout << ch << ": " << morseCode[ch] << endl;
+        }
+    }
 
     return 0;
 }
