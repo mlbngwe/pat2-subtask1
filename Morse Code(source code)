@@ -5,16 +5,18 @@
 
 using namespace std;
 
+// Converts Morse string to ASCII: '.' = 46, '-' = 45
 string convertToAsciiMorse(const string& morse) {
     string asciiMorse = "";
     for (char c : morse) {
-        if (c == '.') asciiMorse += char(46);
-        else if (c == '-') asciiMorse += char(45);
+        if (c == '.') asciiMorse += char(46); // dot
+        else if (c == '-') asciiMorse += char(45); // dash
     }
     return asciiMorse;
 }
 
 int main() {
+    // Morse code map for A-Z and space
     map<char, string> morseCode = {
         {'A', ".-"},   {'B', "-..."}, {'C', "-.-."}, {'D', "-.."},  {'E', "."},
         {'F', "..-."}, {'G', "--."},  {'H', "...."}, {'I', ".."},   {'J', ".---"},
@@ -32,16 +34,15 @@ int main() {
 
     for (char ch : input) {
         ch = toupper(ch);
-        if (morseCode.find(ch) != morseCode.end()) {
-            string converted = convertToAsciiMorse(morseCode[ch]);
-            if (ch != ' ')
-                cout << ch << ": " << converted << endl;
+        if (morseCode.find(ch) == morseCode.end())
+            continue; // ignore unsupported characters
 
-            if (ch == ' ')
-                morseOutput += "       "; // 7 spaces between words
-            else
-                morseOutput += converted + "   "; // 3 spaces between letters
-        }
+        string converted = convertToAsciiMorse(morseCode[ch]);
+
+        if (ch != ' ')
+            cout << ch << ": " << converted << endl;
+
+        morseOutput += (ch == ' ') ? "       " : (converted + "   ");
     }
 
     cout << "\nFull Morse code with spaces:\n" << morseOutput << endl;
