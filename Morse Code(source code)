@@ -5,6 +5,15 @@
 
 using namespace std;
 
+string convertToAsciiMorse(const string& morse) {
+    string asciiMorse = "";
+    for (char c : morse) {
+        if (c == '.') asciiMorse += char(46);
+        else if (c == '-') asciiMorse += char(45);
+    }
+    return asciiMorse;
+}
+
 int main() {
     map<char, string> morseCode = {
         {'A', ".-"},   {'B', "-..."}, {'C', "-.-."}, {'D', "-.."},  {'E', "."},
@@ -22,7 +31,9 @@ int main() {
     for (char ch : input) {
         ch = toupper(ch);
         if (morseCode.find(ch) != morseCode.end()) {
-            cout << ch << ": " << morseCode[ch] << endl;
+            string converted = convertToAsciiMorse(morseCode[ch]);
+            if (ch != ' ')
+                cout << ch << ": " << converted << endl;
         }
     }
 
