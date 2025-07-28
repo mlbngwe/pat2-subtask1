@@ -28,14 +28,23 @@ int main() {
     cout << "Enter a message in English (A-Z characters only): ";
     getline(cin, input);
 
+    string morseOutput = "";
+
     for (char ch : input) {
         ch = toupper(ch);
         if (morseCode.find(ch) != morseCode.end()) {
             string converted = convertToAsciiMorse(morseCode[ch]);
             if (ch != ' ')
                 cout << ch << ": " << converted << endl;
+
+            if (ch == ' ')
+                morseOutput += "       "; // 7 spaces between words
+            else
+                morseOutput += converted + "   "; // 3 spaces between letters
         }
     }
+
+    cout << "\nFull Morse code with spaces:\n" << morseOutput << endl;
 
     return 0;
 }
